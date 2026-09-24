@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Gradients — free copy-paste backgrounds | Cylvox</title>
+<meta name="description" content="A free library of CSS gradient backgrounds. Click to copy the CSS, use it anywhere. Built by Cylvox.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0c0f;
+    --surface: #17151a;
+    --surface-raised: #232028;
+    --border: #28252f;
+    --border-hover: #3a3645;
+    --text: #f2f0f5;
+    --text-muted: #8b8698;
+    --accent: #8b5cf6;
+    --accent-dim: #6d4fd1;
+    --accent-glow: rgba(139, 92, 246, 0.25);
+    --radius: 12px;
+    --display: 'Manrope', sans-serif;
+    --sans: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(140px);
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  body::before {
+    top: -10%; right: -5%;
+    width: 600px; height: 600px;
+    background: var(--accent);
+  }
+  body::after {
+    bottom: -10%; left: -5%;
+    width: 600px; height: 600px;
+    background: #0acffe;
+  }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  header.site {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+    background: rgba(13, 12, 15, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: var(--display); font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; margin-left: 28px; transition: color 0.2s; }
+  nav a:hover { color: var(--text); }
+
+  main { padding: 64px 0 100px; }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 3.5rem;
+    letter-spacing: -0.03em;
+    margin: 0 0 16px;
+    max-width: 22ch;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ffffff 0%, #a59fb3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.lede { color: var(--text-muted); max-width: 60ch; margin: 0 0 48px; font-size: 1.15rem; }
+
+  .toolbar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: all 0.2s ease;
+  }
+  .chip:hover {
+    border-color: var(--border-hover);
+    color: var(--text);
+  }
+  .chip.active { 
+    color: #fff; 
+    background: var(--accent); 
+    border-color: var(--accent); 
+    box-shadow: 0 4px 16px var(--accent-glow); 
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-hover);
+    box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.4);
+  }
+  .swatch { height: 160px; transition: opacity 0.2s; }
+  .card:active .swatch { opacity: 0.85; }
+  .card .info {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card .name { font-size: 1rem; font-weight: 600; color: var(--text); }
+  .card .copy-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: monospace;
+    background: var(--surface-raised);
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+  .card:hover .copy-hint {
+    background: var(--border);
+    color: var(--text);
+  }
+  .card.copied {
+    border-color: var(--accent);
+  }
+  .card.copied .copy-hint { 
+    color: #fff; 
+    background: var(--accent); 
+  }
+  .card.copied .copy-hint::after { content: "Copied!"; }
+  .card:not(.copied) .copy-hint::after { content: "Copy CSS"; }
+
+  .faq { margin-top: 80px; max-width: 68ch; }
+  .faq h2 {
+    font-family: var(--display);
+    font-size: 2rem;
+    margin-bottom: 24px;
+    font-weight: 700;
+  }
+  .faq details { border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .faq details[open] summary { color: var(--accent); }
+  .faq summary { 
+    cursor: pointer; 
+    font-weight: 600; 
+    font-size: 1.1rem;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: '+';
+    color: var(--text-muted);
+    font-size: 1.4rem;
+    font-weight: 400;
+  }
+  .faq details[open] summary::after { content: '−'; }
+  .faq p { color: var(--text-muted); margin: 12px 0 0; line-height: 1.6; }
+
+  footer.site { 
+    border-top: 1px solid var(--border); 
+    padding: 40px 0; 
+    color: var(--text-muted); 
+    font-size: 0.95rem; 
+    text-align: center;
+  }
+  footer.site a { color: var(--text); font-weight: 500; text-decoration: none; }
+  footer.site a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="/">cylvox<span>.</span></a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>CSS gradient backgrounds, ready to paste</h1>
+    <p class="lede">Click any swatch to copy its CSS. No sign-up, no attribution required — use it in any project.</p>
+
+    <div class="toolbar" id="filters"></div>
+    <div class="grid" id="grid"></div>
+
+    <div class="faq">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>How do I use these?</summary>
+        <p>Click a swatch to copy its CSS to your clipboard, then paste it as the <code>background</code> property on any element.</p>
+      </details>
+      <details>
+        <summary>Can I use these commercially?</summary>
+        <p>Yes — these are free to use in personal and commercial projects, no attribution needed.</p>
+      </details>
+      <details>
+        <summary>Do these work in every browser?</summary>
+        <p>Yes. All gradients use standard CSS <code>linear-gradient()</code> or <code>radial-gradient()</code> syntax, supported in every modern browser without prefixes.</p>
+      </details>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">Built by <a href="/">Cylvox</a> — web development &amp; technical SEO.</div>
+</footer>
+
+<script>
+  const gradients = [
+    { name: "Morning Mist", css: "linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%)", tag: "calm" },
+    { name: "Lavender Whisper", css: "linear-gradient(135deg, #f3e7e9 0%, #e3eeff 100%)", tag: "calm" },
+    { name: "Ocean Breeze", css: "linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%)", tag: "calm" },
+    { name: "Vanilla Cream", css: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)", tag: "calm" },
+    { name: "Sage Green", css: "linear-gradient(135deg, #c1dfc4 0%, #deecdd 100%)", tag: "calm" },
+    { name: "Rose Water", css: "linear-gradient(135deg, #fff0f0 0%, #ffdfdf 100%)", tag: "calm" },
+
+    { name: "Mellow Yellow", css: "linear-gradient(135deg, #FDEB71 0%, #F8D800 100%)", tag: "calm" },
+    { name: "Fresh Mint", css: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)", tag: "calm" },
+    { name: "Clear Sky", css: "linear-gradient(135deg, #ABDCFF 0%, #0396FF 100%)", tag: "calm" },
+    { name: "Aqua Splash", css: "linear-gradient(135deg, #90F7EC 0%, #32CCBC 100%)", tag: "calm" },
+    { name: "Blush Pink", css: "linear-gradient(135deg, #FDD6BD 0%, #F794A4 100%)", tag: "calm" },
+    { name: "Soft Lavender", css: "linear-gradient(135deg, #CE9FFC 0%, #7367F0 100%)", tag: "calm" },
+    { name: "Warm Peach", css: "linear-gradient(135deg, #FAD961 0%, #F76B1C 100%)", tag: "calm" },
+    { name: "Deep Crimson", css: "linear-gradient(135deg, #F5515F 0%, #A1051D 100%)", tag: "calm" },
+    { name: "Forest Light", css: "linear-gradient(135deg, #38F9D7 0%, #43E97B 100%)", tag: "calm" },
+    { name: "Midnight Indigo", css: "linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%)", tag: "calm" },
+    { name: "Steel Grey", css: "linear-gradient(135deg, #8BAAAA 0%, #434B4D 100%)", tag: "calm" },
+    { name: "Rich Cocoa", css: "linear-gradient(135deg, #D4A373 0%, #A0522D 100%)", tag: "calm" },
+
+    { name: "Aurora", css: "linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%)", tag: "mesh" },
+    { name: "Cyberpunk", css: "linear-gradient(135deg, #ff0099 0%, #493240 100%)", tag: "neon" },
+    { name: "Holographic", css: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", tag: "cool" },
+    { name: "Hyper", css: "linear-gradient(135deg, #f12711 0%, #f5af19 100%)", tag: "warm" },
+    { name: "Sunset Vibes", css: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", tag: "mesh" },
+    { name: "Toxic", css: "linear-gradient(135deg, #bbf0f3 0%, #f6d285 100%)", tag: "pastel" },
+    { name: "Cosmic", css: "linear-gradient(135deg, #ff0844 0%, #ffb199 100%)", tag: "mesh" },
+    { name: "Night Sky", css: "linear-gradient(135deg, #09203f 0%, #537895 100%)", tag: "cool" },
+    { name: "Matcha", css: "linear-gradient(135deg, #c4e0e5 0%, #4ca1af 100%)", tag: "cool" },
+    { name: "Lava", css: "linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%)", tag: "neon" },
+    { name: "Synthwave", css: "linear-gradient(135deg, #fc00ff 0%, #00dbde 100%)", tag: "neon" },
+    { name: "Glass Water", css: "linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%)", tag: "mono" },
+
+    { name: "Ember Dust", css: "linear-gradient(135deg, #ff6b4a 0%, #ffb199 100%)", tag: "warm" },
+    { name: "Copper Line", css: "linear-gradient(135deg, #b8621b 0%, #e8a56e 100%)", tag: "warm" },
+    { name: "Terracotta Fade", css: "linear-gradient(135deg, #d97757 0%, #f2c9a8 100%)", tag: "warm" },
+    { name: "Sundown", css: "linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%)", tag: "warm" },
+    { name: "Cinder", css: "linear-gradient(135deg, #642b2b 0%, #c96f4a 100%)", tag: "warm" },
+    { name: "Golden Hour", css: "linear-gradient(135deg, #f7971e 0%, #ffd200 100%)", tag: "warm" },
+
+    { name: "Deep Current", css: "linear-gradient(135deg, #0f2027 0%, #2c5364 100%)", tag: "cool" },
+    { name: "Glacier", css: "linear-gradient(135deg, #83a4d4 0%, #b6fbff 100%)", tag: "cool" },
+    { name: "Midnight Bay", css: "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)", tag: "cool" },
+    { name: "Arctic Steel", css: "linear-gradient(135deg, #7f8fa4 0%, #dae2f8 100%)", tag: "cool" },
+    { name: "Blue Hour", css: "linear-gradient(135deg, #2b5876 0%, #4e4376 100%)", tag: "cool" },
+    { name: "Cold Front", css: "linear-gradient(135deg, #00416a 0%, #799f0c 100%)", tag: "cool" },
+
+    { name: "Violet Static", css: "linear-gradient(135deg, #6d4fd1 0%, #8b5cf6 50%, #c39bff 100%)", tag: "vivid" },
+    { name: "Neon Wire", css: "linear-gradient(135deg, #f953c6 0%, #b91d73 100%)", tag: "vivid" },
+    { name: "Signal Green", css: "linear-gradient(135deg, #0ba360 0%, #3cba92 100%)", tag: "vivid" },
+    { name: "Radio Wave", css: "linear-gradient(135deg, #7f00ff 0%, #e100ff 100%)", tag: "vivid" },
+    { name: "Hazard", css: "linear-gradient(135deg, #f83600 0%, #f9d423 100%)", tag: "vivid" },
+    { name: "Static Blue", css: "linear-gradient(135deg, #0acffe 0%, #495aff 100%)", tag: "vivid" },
+
+    { name: "Stone Dust", css: "linear-gradient(135deg, #232028 0%, #3c3745 100%)", tag: "mono" },
+    { name: "Graphite", css: "linear-gradient(135deg, #232526 0%, #414345 100%)", tag: "mono" },
+    { name: "Ash Layer", css: "linear-gradient(135deg, #606c88 0%, #3f4c6b 100%)", tag: "mono" },
+    { name: "Paper White", css: "linear-gradient(135deg, #ece9e6 0%, #ffffff 100%)", tag: "mono" },
+    { name: "Slate Line", css: "linear-gradient(135deg, #485563 0%, #29323c 100%)", tag: "mono" },
+    { name: "Chalk", css: "linear-gradient(135deg, #d7d2cc 0%, #304352 100%)", tag: "mono" },
+
+    { name: "Cotton Sky", css: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)", tag: "pastel" },
+    { name: "Soft Orchid", css: "linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)", tag: "pastel" },
+    { name: "Mint Cream", css: "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)", tag: "pastel" },
+    { name: "Powder Rose", css: "linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%)", tag: "pastel" },
+    { name: "Cloud Nine", css: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)", tag: "pastel" },
+    { name: "Peach Fizz", css: "linear-gradient(135deg, #ffe29f 0%, #ffa99f 60%, #ff719a 100%)", tag: "pastel" },
+
+    { name: "Reactor Core", css: "radial-gradient(circle, #8b5cf6 0%, #1c1a20 100%)", tag: "vivid" },
+    { name: "Eclipse", css: "radial-gradient(circle, #3c3745 0%, #121114 100%)", tag: "mono" },
+    { name: "Solar Flare", css: "radial-gradient(circle, #ffd200 0%, #f7971e 60%, #642b2b 100%)", tag: "warm" },
+    { name: "Deep Sea Vent", css: "radial-gradient(circle, #2c5364 0%, #0f2027 100%)", tag: "cool" },
+  ];
+
+  const tags = ["all", ...new Set(gradients.map(g => g.tag))];
+  const filtersEl = document.getElementById('filters');
+  const gridEl = document.getElementById('grid');
+  let activeTag = "all";
+
+  function renderFilters() {
+    filtersEl.innerHTML = tags.map(t =>
+      `<button class="chip${t === activeTag ? ' active' : ''}" data-tag="${t}">${t}</button>`
+    ).join('');
+    filtersEl.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        activeTag = chip.dataset.tag;
+        renderFilters();
+        renderGrid();
+      });
+    });
+  }
+
+  function renderGrid() {
+    const list = activeTag === "all" ? gradients : gradients.filter(g => g.tag === activeTag);
+    gridEl.innerHTML = list.map(g =>
+      `<div class="card" data-css="background: ${g.css};">
+         <div class="swatch" style="background: ${g.css}"></div>
+         <div class="info">
+           <span class="name">${g.name}</span>
+           <span class="copy-hint"></span>
+         </div>
+       </div>`
+    ).join('');
+
+    gridEl.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', async () => {
+        const css = card.dataset.css;
+        try {
+          await navigator.clipboard.writeText(css);
+        } catch (e) {
+          const ta = document.createElement('textarea');
+          ta.value = css; document.body.appendChild(ta); ta.select();
+          document.execCommand('copy'); ta.remove();
+        }
+        card.classList.add('copied');
+        setTimeout(() => card.classList.remove('copied'), 1400);
+      });
+    });
+  }
+
+  renderFilters();
+  renderGrid();
+</script>
+
+</body>
+</html>
